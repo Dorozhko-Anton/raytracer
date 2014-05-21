@@ -28,4 +28,26 @@ public class RenderContext {
     public Scene getScene() {
         return scene;
     }
+
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public SceneObject intersect(Ray ray, Color color) {
+        //float tClosest = ray.tmax;
+        SceneObject hitObject = null;
+        // TODO scene getObjectList;
+//        for (int i = 0; i < objects.size(); i++) {
+//            Ray r = new Ray(ray);
+//                if (scene.getObjects().get(i).intersect(ray, isectDataCurrent)) {
+//                    if (isectDataCurrent.t < tClosest && isectDataCurrent.t > ray.tmin) {
+//                        isectData = isectDataCurrent;
+//                        hitObject = rc->objects[i];
+//                        tClosest = isectDataCurrent.t;
+//                    }
+//                }
+//            }
+
+        return hitObject;
+    }
 }

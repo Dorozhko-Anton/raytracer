@@ -13,6 +13,14 @@ public class Ray {
     private double lastIntersectTime;
     private Vector3D lastIntersectPoint;
 
+    public Ray(Ray ray) {
+        origin = ray.origin;
+        direction = ray.direction;
+        rayColor = ray.rayColor;
+        lastIntersectPoint = ray.lastIntersectPoint;
+        lastIntersectTime = ray.lastIntersectTime;
+    }
+
     public Vector3D getOrigin() {
         return origin;
     }
