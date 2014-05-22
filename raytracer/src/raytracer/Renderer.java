@@ -79,12 +79,12 @@ public class Renderer {
 
 
         // Ambient
-//        if(material.getKa() > 0) {
-//            ambient = mix_colors(renderContext.getBackgroundColor(),
-//                    sceneObject.getColor());
-//            resultColor = addColors(resultColor,
-//                    mulColors(ambient, material.getKa()));
-//        }
+        if (material.getKa() > 0) {
+            ambient = mixColors(renderContext.getBackgroundColor(),
+                    sceneObject.getColor());
+            resultColor = addColors(resultColor,
+                    mulColors(ambient, material.getKa()));
+        }
 
         // Diffuse
 //        if(material.getKd() > 0) {
@@ -133,6 +133,12 @@ public class Renderer {
         }
 
         return resultColor;
+    }
+
+    private static Color mixColors(Color backgroundColor, Color color) {
+        return new Color(backgroundColor.getRed() * color.getRed() >> 8,
+                backgroundColor.getGreen() * color.getGreen() >> 8,
+                backgroundColor.getBlue() * color.getBlue() >> 8);
     }
 
     private static Color addColors(Color resultColor, Color color) {

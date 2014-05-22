@@ -42,10 +42,32 @@ public class MainFrame extends JFrame {
 
         container.add(toolBar, BorderLayout.SOUTH);
         add(container, BorderLayout.NORTH);
-
+        setFocusable(true);
 //        displayPanel = new JPanel();
 //        displayPanel.setLayout(new BorderLayout());
 //        add(displayPanel, BorderLayout.CENTER);
+    }
+
+    /**
+     * @param path
+     * @return Returns an ImageIcon, or null if the path was invalid.
+     */
+    public static ImageIcon createImageIcon(String path) {
+        java.net.URL imgURL = MainFrame.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
+
+    /**
+     * <p> Method to test </p>
+     */
+    public static void CreateAndShowGUI() {
+        MainFrame mainFrame = new MainFrame("Лабораторная работа №0");
+        mainFrame.setVisible(true);
     }
 
     /**
@@ -66,7 +88,6 @@ public class MainFrame extends JFrame {
     public void addAction(Action action) {
         toolBar.add(action);
     }
-
 
     /**
      * @return get File menu to add menu items
@@ -91,28 +112,6 @@ public class MainFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         repaint();
-    }
-
-    /**
-     * @param path
-     * @return Returns an ImageIcon, or null if the path was invalid.
-     */
-    public static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = MainFrame.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-    }
-
-    /**
-     * <p> Method to test </p>
-     */
-    public static void CreateAndShowGUI() {
-        MainFrame mainFrame = new MainFrame("Лабораторная работа №0");
-        mainFrame.setVisible(true);
     }
 
 }
