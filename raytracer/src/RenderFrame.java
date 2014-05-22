@@ -1,12 +1,9 @@
 import raytracer.*;
+import raytracer.Renderer;
 
-import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -71,12 +68,12 @@ public class RenderFrame {
                     new Vector3D(700, -700, -130),
                     new Vector3D(0, 400, -130),
                     Color.blue,
-                    new Material(0, 0, 0, 0.6, 0, 0)
+                    new Material(0.5, 0, 0, 0.3, 0, 0)
             ));
             camera = new Camera(new Vector3D(0, 500, 0),
                     -Math.PI/2, 0, Math.PI, 320);
 
-            renderContext = new RenderContext(256, 256,
+            renderContext = new RenderContext(512, 512,
                     camera,
                     scene,
                     Color.yellow);
@@ -84,18 +81,43 @@ public class RenderFrame {
             renderedImage = Renderer.render(renderContext);
 
             setFocusable(true);
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    requestFocusInWindow();
+                }
+            });
             addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyTyped(KeyEvent e) {
                     super.keyTyped(e);
                     switch (e.getKeyChar()) {
+                        case 'w':
+                            System.out.println("w");
+                            camera.rotateCamera(Math.PI / 36, 0, 0);
+                            break;
+                        case 's':
+                            System.out.println("s");
+                            camera.rotateCamera(-Math.PI / 36, 0, 0);
+                            break;
                         case 'a':
-                            System.out.println("a");
-                            camera.setAlZ(camera.getAlZ() + Math.PI / 36);
+                            camera.rotateCamera(0, 0, Math.PI / 36);
                             break;
                         case 'd':
-                            System.out.println("d");
-                            camera.setAlZ(camera.getAlZ() - Math.PI / 36);
+                            camera.rotateCamera(0, 0, -Math.PI / 36);
+                            break;
+                        case 'i':
+                            camera.moveCamera(new Vector3D(100, 0, 0));
+                            break;
+                        case 'k':
+                            camera.moveCamera(new Vector3D(-100, 0, 0));
+                            break;
+                        case 'j':
+                            camera.moveCamera(new Vector3D(0, 100, 0));
+                            break;
+                        case 'l':
+                            camera.moveCamera(new Vector3D(0, -100, 0));
                             break;
                     }
                     renderedImage = Renderer.render(renderContext);
