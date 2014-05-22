@@ -8,4 +8,10 @@ import java.awt.*;
 public interface SceneObject {
     boolean intersect(Ray r);
 
+    Material getMaterial();
+
+    Vector3D getNormal();
+
+    Color getColor();
+
 }

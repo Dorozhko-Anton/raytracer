@@ -5,34 +5,90 @@ package raytracer;
  */
 public class Vector3D {
 
-    public static Vector3D cross(Vector3D v1, Vector3D v2) {
-        return new Vector3D(new double[]{
-                v1.v[1] * v2.v[2] - v1.v[2] * v2.v[1],
-                v1.v[2] * v2.v[0] - v1.v[0] * v2.v[2],
-                v1.v[0] * v2.v[1] - v1.v[1] * v2.v[0]
-        });
-    };
-
-    private double v[] = new double[3];
-
-    public double[] getV() {
-        return v;
+    {
+        x = 0;
+        y = 0;
+        z = 0;
     }
 
-    public Vector3D(double[] v) {
-        this.v = v;
+    double x;
+    double y;
+
+    ;
+    double z;
+
+    public Vector3D() {
+
+    }
+
+    public Vector3D(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public static Vector3D cross(Vector3D v1, Vector3D v2) {
+        return new Vector3D(
+                v1.y * v2.z - v1.z * v2.y,
+                v1.z * v2.x - v1.x * v2.z,
+                v1.x * v2.y - v1.y * v2.x
+        );
+    }
+
+    public static double norm(Vector3D v) {
+        return Vector3D.dot(v, v);
+    }
+
+    public static double dot(Vector3D v1, Vector3D v2) {
+        return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
     }
 
     public Vector3D minus(Vector3D v0) {
-        return new Vector3D(new double[]{
-                v[0] - v0.v[0],
-                v[1] - v0.v[1],
-                v[2] - v0.v[2]
-        });
+        return new Vector3D(
+                x - v0.x,
+                y - v0.y,
+                z - v0.z
+        );
     }
 
+    static Vector3D
+    rotateVectorX(final Vector3D p,
+                    final double sin_al,
+                    final double cos_al) {
 
-    public static double dot(Vector3D v1, Vector3D v2) {
-        return v1.v[0]*v2.v[0] + v1.v[1]*v2.v[1] + v1.v[2]*v2.v[2];
+        final double y = p.y * cos_al - p.z * sin_al;
+        final double z = p.y * sin_al + p.z * cos_al;
+
+        return new Vector3D(p.x, y, z);
+    }
+
+    static Vector3D
+    rotateVectorY(final Vector3D p,
+                    final double sin_al,
+                    final double cos_al) {
+
+        final double x = p.x * cos_al - p.z * sin_al;
+        final double z = p.x * sin_al + p.z * cos_al;
+
+        return new Vector3D(x, p.y, z);
+    }
+
+    static Vector3D
+    rotateVectorZ(final Vector3D p,
+                    final double sin_al,
+                    final double cos_al) {
+
+        final double x = p.x * cos_al - p.y * sin_al;
+        final double y = p.x * sin_al + p.y * cos_al;
+
+        return new Vector3D(x, y, p.z);
+    }
+
+    public Vector3D mul(double t) {
+        return new Vector3D(x*t, y*t, z*t);
+    }
+
+    public Vector3D plus(Vector3D vector3D) {
+        return new Vector3D(x + vector3D.x, y + vector3D.y, z + vector3D.z);
     }
 }

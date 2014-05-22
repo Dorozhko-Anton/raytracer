@@ -1,7 +1,5 @@
 package raytracer;
 
-import com.sun.javafx.geom.Vec3f;
-
 import java.awt.*;
 
 /**
@@ -12,10 +10,21 @@ public class Triangle3D implements SceneObject {
     private Vector3D v1;
     private Vector3D v2;
 
+    private Color color;
+    private Material material;
+
     public Triangle3D(Vector3D v0, Vector3D v1, Vector3D v2) {
         this.v0 = v0;
         this.v1 = v1;
         this.v2 = v2;
+    }
+
+    public Triangle3D(Vector3D v0, Vector3D v1, Vector3D v2, Color color, Material material) {
+        this.v0 = v0;
+        this.v1 = v1;
+        this.v2 = v2;
+        this.color = color;
+        this.material = material;
     }
 
     @Override
@@ -37,6 +46,26 @@ public class Triangle3D implements SceneObject {
         if (v < 0 || u + v > 1) return false;
         double t = Vector3D.dot(edge2, qvec) * invDet;
 
+
+        r.setU(u);
+        r.setV(v);
+        r.setLastIntersectTime(t);
+
         return true;
+    }
+
+    @Override
+    public Material getMaterial() {
+        return material;
+    }
+
+    @Override
+    public Vector3D getNormal() {
+        return Vector3D.cross(v1.minus(v0), v2.minus(v0));
+    }
+
+    @Override
+    public Color getColor() {
+        return color;
     }
 }
