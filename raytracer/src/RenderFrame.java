@@ -48,11 +48,14 @@ public class RenderFrame {
 
         mainFrame.getFileMenu().add(exitAction);
 
-        mainFrame.addCanvas(new RenderPanel());
+        RenderPanel renderPanel = new RenderPanel();
+        mainFrame.addCanvas(renderPanel);
         mainFrame.setFocusable(true);
 
         mainFrame.pack();
         mainFrame.setVisible(true);
+
+        SceneMap sceneMap = new SceneMap(renderPanel);
     }
 
     class RenderPanel extends JPanel {
@@ -81,9 +84,11 @@ public class RenderFrame {
             renderedImage = Renderer.render(renderContext);
 
             setFocusable(true);
-            addMouseListener(new MouseAdapter() {
+            addMouseListener(new MouseAdapter()
+            {
                 @Override
-                public void mouseClicked(MouseEvent e) {
+                public void mouseClicked(MouseEvent e)
+                {
                     super.mouseClicked(e);
                     requestFocusInWindow();
                 }
@@ -125,6 +130,20 @@ public class RenderFrame {
                     repaint();
                 }
             });
+        }
+
+        public void changeCamerePosition()
+        {
+            camera = new Camera(new Vector3D(0, 0, 0),
+                    -Math.PI/2, 0, Math.PI, 320);
+
+            renderContext = new RenderContext(512, 512,
+                    camera,
+                    scene,
+                    Color.white);
+
+            renderedImage = Renderer.render(renderContext);
+            repaint();
         }
 
         @Override
