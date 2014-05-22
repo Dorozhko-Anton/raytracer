@@ -12,6 +12,6 @@ public class SceneMap extends JFrame
 
     private boolean checkPoint(double x, double y)
     {
-
+        return false;
     }
 }
