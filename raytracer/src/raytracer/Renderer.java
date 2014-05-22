@@ -36,10 +36,10 @@ public class Renderer {
     public static Color trace(Vector3D r, RenderContext renderContext) {
         Camera camera = renderContext.getCamera();
         r = Vector3D.rotateVectorX(r, camera.getSinAlX(), camera.getCosAlX());
-        r = Vector3D.rotateVectorX(r, camera.getSinAlY(), camera.getCosAlY());
-        r = Vector3D.rotateVectorX(r, camera.getSinAlZ(), camera.getCosAlZ());
+        r = Vector3D.rotateVectorY(r, camera.getSinAlY(), camera.getCosAlY());
+        r = Vector3D.rotateVectorZ(r, camera.getSinAlZ(), camera.getCosAlZ());
 
-        Ray ray = new Ray(renderContext.getCamera().getOrigin(), r, 1.0);
+        Ray ray = new Ray(renderContext.getCamera().getWorldPosition(), r, 1.0);
 
         return traceRecursively(ray,
                 renderContext,
@@ -87,16 +87,16 @@ public class Renderer {
         }
 
         // Diffuse
-//        if(material.getKd() > 0) {
-//            diffuse = sceneObject.getColor();
-//
-//            if(renderContext.getScene().getLightSource3Ds().size() > 0) {
-//                Color light = get_lighting_color(point, norm, scene);
-//                diffuse = mix_colors(diffuse, light);
-//            }
-//            resultColor = addColors(resultColor,
-//                    mulColors(diffuse_color, material.Kd));
-//        }
+        if (material.getKd() > 0) {
+            diffuse = sceneObject.getColor();
+
+            if (renderContext.getScene().getLightSource3Ds().size() > 0) {
+                Color light = getLightingColor(r, renderContext);
+                diffuse = mixColors(diffuse, light);
+            }
+            resultColor = addColors(resultColor,
+                    mulColors(diffuse, material.getKd()));
+        }
 
         // Specular
 //        if(material.getKs() > 0) {
@@ -112,8 +112,7 @@ public class Renderer {
 
         // Reflect
         if (material.getKr() > 0) {
-            // Avoid deep recursion by tracing rays, which have intensity is greather than threshold
-            // and avoid infinite recursion by limiting number of recursive calls
+
             if ((r.getIntensity() > THRESHOLD_RAY_INTENSITY)
                     && (recursionLevel < MAX_RAY_RECURSION_LEVEL)) {
 
@@ -133,6 +132,24 @@ public class Renderer {
         }
 
         return resultColor;
+    }
+
+    private static Color getLightingColor(Ray r, RenderContext renderContext) {
+        Color lightColor = new Color(0, 0, 0);
+        for (LightSource3D lightSource : renderContext.getScene().getLightSource3Ds()) {
+            if (isViewable(lightSource.getOrigin(), r, renderContext)) {
+//                Vector3D v_ls = new Vector3D(point, lightSource.getOrigin());
+//                double cos_ls = fabs(cos_vectors(norm_v, v_ls));
+//                lightColor = mulColors(lightSource.getColor(), cos_ls);
+            }
+        }
+        return lightColor;
+    }
+
+    private static boolean isViewable(Vector3D origin, Ray r, RenderContext renderContext) {
+
+
+        return false;
     }
 
     private static Color mixColors(Color backgroundColor, Color color) {

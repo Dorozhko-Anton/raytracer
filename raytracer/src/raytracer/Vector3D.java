@@ -27,6 +27,12 @@ public class Vector3D {
         this.z = z;
     }
 
+    public Vector3D(Vector3D v) {
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+    }
+
     public static Vector3D cross(Vector3D v1, Vector3D v2) {
         return new Vector3D(
                 v1.y * v2.z - v1.z * v2.y,
@@ -43,18 +49,10 @@ public class Vector3D {
         return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
     }
 
-    public Vector3D minus(Vector3D v0) {
-        return new Vector3D(
-                x - v0.x,
-                y - v0.y,
-                z - v0.z
-        );
-    }
-
     static Vector3D
     rotateVectorX(final Vector3D p,
-                    final double sin_al,
-                    final double cos_al) {
+                  final double sin_al,
+                  final double cos_al) {
 
         final double y = p.y * cos_al - p.z * sin_al;
         final double z = p.y * sin_al + p.z * cos_al;
@@ -64,8 +62,8 @@ public class Vector3D {
 
     static Vector3D
     rotateVectorY(final Vector3D p,
-                    final double sin_al,
-                    final double cos_al) {
+                  final double sin_al,
+                  final double cos_al) {
 
         final double x = p.x * cos_al - p.z * sin_al;
         final double z = p.x * sin_al + p.z * cos_al;
@@ -75,8 +73,8 @@ public class Vector3D {
 
     static Vector3D
     rotateVectorZ(final Vector3D p,
-                    final double sin_al,
-                    final double cos_al) {
+                  final double sin_al,
+                  final double cos_al) {
 
         final double x = p.x * cos_al - p.y * sin_al;
         final double y = p.x * sin_al + p.y * cos_al;
@@ -84,8 +82,16 @@ public class Vector3D {
         return new Vector3D(x, y, p.z);
     }
 
+    public Vector3D minus(Vector3D v0) {
+        return new Vector3D(
+                x - v0.x,
+                y - v0.y,
+                z - v0.z
+        );
+    }
+
     public Vector3D mul(double t) {
-        return new Vector3D(x*t, y*t, z*t);
+        return new Vector3D(x * t, y * t, z * t);
     }
 
     public Vector3D plus(Vector3D vector3D) {

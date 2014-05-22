@@ -64,19 +64,19 @@ public class RenderFrame {
         RenderPanel() {
             scene = new Scene();
             scene.addSceneObject(new Triangle3D(
-                    new Vector3D(-700, -700, -130),
-                    new Vector3D(700, -700, -130),
-                    new Vector3D(0, 400, -130),
+                    new Vector3D(-100, 130, -100),
+                    new Vector3D(100, 130, -100),
+                    new Vector3D(0, 130, 80),
                     Color.blue,
                     new Material(0.5, 0, 0, 0.3, 0, 0)
             ));
-            camera = new Camera(new Vector3D(0, 500, 0),
+            camera = new Camera(new Vector3D(0, 0, 0),
                     -Math.PI/2, 0, Math.PI, 320);
 
             renderContext = new RenderContext(512, 512,
                     camera,
                     scene,
-                    Color.yellow);
+                    Color.white);
 
             renderedImage = Renderer.render(renderContext);
 
@@ -92,14 +92,15 @@ public class RenderFrame {
                 @Override
                 public void keyTyped(KeyEvent e) {
                     super.keyTyped(e);
+                    System.out.println(e.getKeyChar());
                     switch (e.getKeyChar()) {
                         case 'w':
-                            System.out.println("w");
-                            camera.rotateCamera(Math.PI / 36, 0, 0);
+
+                            //camera.rotateCamera(Math.PI / 36, 0, 0);
                             break;
                         case 's':
-                            System.out.println("s");
-                            camera.rotateCamera(-Math.PI / 36, 0, 0);
+
+                            //camera.rotateCamera(-Math.PI / 36, 0, 0);
                             break;
                         case 'a':
                             camera.rotateCamera(0, 0, Math.PI / 36);
@@ -108,16 +109,16 @@ public class RenderFrame {
                             camera.rotateCamera(0, 0, -Math.PI / 36);
                             break;
                         case 'i':
-                            camera.moveCamera(new Vector3D(100, 0, 0));
-                            break;
-                        case 'k':
-                            camera.moveCamera(new Vector3D(-100, 0, 0));
-                            break;
-                        case 'j':
                             camera.moveCamera(new Vector3D(0, 100, 0));
                             break;
-                        case 'l':
+                        case 'k':
                             camera.moveCamera(new Vector3D(0, -100, 0));
+                            break;
+                        case 'j':
+                            camera.moveCamera(new Vector3D(-100, 0, 0));
+                            break;
+                        case 'l':
+                            camera.moveCamera(new Vector3D(100, 0, 0));
                             break;
                     }
                     renderedImage = Renderer.render(renderContext);

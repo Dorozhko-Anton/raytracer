@@ -6,35 +6,21 @@ package raytracer;
 public class Camera {
     private static double EPSILON = 10e-6;
     private Vector3D origin;
-
-    public void setAlX(double alX) {
-        this.alX = alX;
-    }
-
-    public void setAlY(double alY) {
-        this.alY = alY;
-    }
-
-    public void setAlZ(double alZ) {
-        this.alZ = alZ;
-    }
-
+    private Vector3D worldPosition;
     private double alX;
     private double sinAlX;
     private double cosAlX;
-
     private double alY;
     private double sinAlY;
     private double cosAlY;
-
     private double alZ;
     private double sinAlZ;
     private double cosAlZ;
-
     private double projPlaneDist;
 
     public Camera(Vector3D origin, double alX, double alY, double alZ, double projPlaneDist) {
         this.origin = origin;
+        this.worldPosition = new Vector3D(origin);
         this.alX = alX;
         sinAlX = Math.sin(alX);
         cosAlX = Math.cos(alX);
@@ -72,7 +58,11 @@ public class Camera {
     }
 
     public void moveCamera(Vector3D vector) {
-        this.origin = vector;
+        Vector3D direction = Vector3D.rotateVectorX(vector, sinAlX, cosAlX);
+        direction = Vector3D.rotateVectorY(direction, sinAlY, cosAlY);
+        direction = Vector3D.rotateVectorZ(direction, sinAlZ, cosAlZ);
+
+        this.worldPosition.plus(direction);
     }
 
     public double getProjPlaneDist() {
@@ -87,6 +77,10 @@ public class Camera {
         return alX;
     }
 
+    public void setAlX(double alX) {
+        this.alX = alX;
+    }
+
     public double getSinAlX() {
         return sinAlX;
     }
@@ -97,6 +91,10 @@ public class Camera {
 
     public double getAlY() {
         return alY;
+    }
+
+    public void setAlY(double alY) {
+        this.alY = alY;
     }
 
     public double getSinAlY() {
@@ -111,11 +109,23 @@ public class Camera {
         return alZ;
     }
 
+    public void setAlZ(double alZ) {
+        this.alZ = alZ;
+    }
+
     public double getSinAlZ() {
         return sinAlZ;
     }
 
     public double getCosAlZ() {
         return cosAlZ;
+    }
+
+    public Vector3D getWorldPosition() {
+        return worldPosition;
+    }
+
+    public void setWorldPosition(Vector3D worldPosition) {
+        this.worldPosition = worldPosition;
     }
 }
