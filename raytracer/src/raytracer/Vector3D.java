@@ -11,6 +11,8 @@ public class Vector3D {
         z = 0;
     }
 
+    private static final double EPSILON = 10e-4;
+
     double x;
     double y;
 
@@ -96,5 +98,20 @@ public class Vector3D {
 
     public Vector3D plus(Vector3D vector3D) {
         return new Vector3D(x + vector3D.x, y + vector3D.y, z + vector3D.z);
+    }
+
+
+    @Override
+    public String toString() {
+        return (x + ";" + y + ";" + z);
+    }
+
+    public boolean equals(Vector3D v) {
+        if (v == null) {
+            return false;
+        }
+        return ((x <= v.x + EPSILON) && (x >= v.x - EPSILON)) &&
+                ((y <= v.y + EPSILON) && (y >= v.y - EPSILON)) &&
+                ((z <= v.z + EPSILON) && (z >= v.z - EPSILON));
     }
 }

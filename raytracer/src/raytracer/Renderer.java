@@ -23,7 +23,7 @@ public class Renderer {
             for (int j = 0; j < renderContext.getImageHeight(); j++) {
                 final double x = i - dx;
                 final double y = j - dy;
-                final Vector3D direction = new Vector3D(x, y, focus);
+                final Vector3D direction = new Vector3D(focus, x, y);
 
                 final Color col = trace(direction, renderContext);
 
@@ -35,9 +35,9 @@ public class Renderer {
 
     public static Color trace(Vector3D r, RenderContext renderContext) {
         Camera camera = renderContext.getCamera();
-        r = Vector3D.rotateVectorX(r, camera.getSinAlX(), camera.getCosAlX());
-        r = Vector3D.rotateVectorY(r, camera.getSinAlY(), camera.getCosAlY());
-        r = Vector3D.rotateVectorZ(r, camera.getSinAlZ(), camera.getCosAlZ());
+        r = Vector3D.rotateVectorZ(r, camera.getSinAlX(), camera.getCosAlX());
+        // r = Vector3D.rotateVectorY(r, camera.getSinAlY(), camera.getCosAlY());
+        //r = Vector3D.rotateVectorZ(r, camera.getSinAlZ(), camera.getCosAlZ());
 
         Ray ray = new Ray(renderContext.getCamera().getWorldPosition(), r, 1.0);
 
@@ -75,8 +75,6 @@ public class Renderer {
         Color ambient;
         Color diffuse;
         Color reflected;
-        Color specular;
-
 
         // Ambient
         if (material.getKa() > 0) {
@@ -91,81 +89,88 @@ public class Renderer {
             diffuse = sceneObject.getColor();
 
             if (renderContext.getScene().getLightSource3Ds().size() > 0) {
-                Color light = getLightingColor(r, renderContext);
+                Color light = getLightingColor(r, sceneObject.getNormal(), renderContext);
                 diffuse = mixColors(diffuse, light);
             }
             resultColor = addColors(resultColor,
                     mulColors(diffuse, material.getKd()));
         }
-
-        // Specular
-//        if(material.getKs() > 0) {
-//            specular = renderContext.getBackgroundColor();
 //
-//            if(renderContext.getScene().getLightSource3Ds().size() > 0) {
-//                specular = get_specular_color(point, reflectedRay, scene, material.getP());
+//
+//        // Reflect
+//        if (material.getKr() > 0) {
+//
+//            if ((r.getIntensity() > THRESHOLD_RAY_INTENSITY)
+//                    && (recursionLevel < MAX_RAY_RECURSION_LEVEL)) {
+//
+//                Ray reflectedRay = new Ray();
+//
+//                reflectedRay.setOrigin(r.getLastIntersectPoint());
+//                reflectedRay.setDirection(reflectDirection(r.getDirection(), sceneObject.getNormal()));
+//                reflectedRay.setIntensity(r.getIntensity() * material.getKr());
+//
+//                reflected = traceRecursively(reflectedRay, renderContext, recursionLevel + 1);
+//
+//            } else {
+//                reflected = renderContext.getBackgroundColor();
 //            }
 //            resultColor = addColors(resultColor,
-//                    mulColors(specular_color, material.Ks));
+//                    mulColors(reflected, material.getKr()));
 //        }
-
-
-        // Reflect
-        if (material.getKr() > 0) {
-
-            if ((r.getIntensity() > THRESHOLD_RAY_INTENSITY)
-                    && (recursionLevel < MAX_RAY_RECURSION_LEVEL)) {
-
-                Ray reflectedRay = new Ray();
-
-                reflectedRay.setOrigin(r.getLastIntersectPoint());
-                reflectedRay.setDirection(reflectDirection(r.getDirection(), sceneObject.getNormal()));
-                reflectedRay.setIntensity(r.getIntensity() * material.getKr());
-
-                reflected = traceRecursively(reflectedRay, renderContext, recursionLevel + 1);
-
-            } else {
-                reflected = renderContext.getBackgroundColor();
-            }
-            resultColor = addColors(resultColor,
-                    mulColors(reflected, material.getKr()));
-        }
 
         return resultColor;
     }
 
-    private static Color getLightingColor(Ray r, RenderContext renderContext) {
+    private static Color getLightingColor(Ray r, Vector3D normal, RenderContext renderContext) {
         Color lightColor = new Color(0, 0, 0);
         for (LightSource3D lightSource : renderContext.getScene().getLightSource3Ds()) {
-            if (isViewable(lightSource.getOrigin(), r, renderContext)) {
-//                Vector3D v_ls = new Vector3D(point, lightSource.getOrigin());
-//                double cos_ls = fabs(cos_vectors(norm_v, v_ls));
-//                lightColor = mulColors(lightSource.getColor(), cos_ls);
+            if (isViewable(lightSource.getOrigin(), r.getLastIntersectPoint(), renderContext)) {
+                Vector3D distance = r.getLastIntersectPoint().minus(lightSource.getOrigin());
+                lightColor = addColors(lightColor, mulColors(lightSource.getColor(), 100 / Vector3D.dot(distance, distance)));
             }
         }
         return lightColor;
     }
 
-    private static boolean isViewable(Vector3D origin, Ray r, RenderContext renderContext) {
+    private static double cosVectors(Vector3D normal, Vector3D v_ls) {
+        return Vector3D.dot(normal, v_ls) / (Vector3D.norm(v_ls) * Vector3D.norm(normal));
+    }
 
+    private static boolean isViewable(Vector3D origin, Vector3D target, RenderContext renderContext) {
+        Vector3D nearestPoint = null;
+        double nearestTime = Double.MAX_VALUE;
+
+        Ray r = new Ray(origin, target.minus(origin), 0);
+
+        for (SceneObject sceneObject : renderContext.getScene().getObjects()) {
+            if (sceneObject.intersect(r)) {
+                if (r.getLastIntersectTime() < nearestTime && r.getLastIntersectTime() > 0) {
+                    nearestTime = r.getLastIntersectTime();
+                    nearestPoint = r.getLastIntersectPoint();
+                }
+            }
+        }
+        if (target.equals(nearestPoint)) {
+            return true;
+        }
 
         return false;
     }
 
     private static Color mixColors(Color backgroundColor, Color color) {
-        return new Color(backgroundColor.getRed() * color.getRed() >> 8,
-                backgroundColor.getGreen() * color.getGreen() >> 8,
-                backgroundColor.getBlue() * color.getBlue() >> 8);
+        return normColor((backgroundColor.getRed() * color.getRed()) >> 8,
+                (backgroundColor.getGreen() * color.getGreen()) >> 8,
+                (backgroundColor.getBlue() * color.getBlue()) >> 8);
     }
 
     private static Color addColors(Color resultColor, Color color) {
-        return new Color(resultColor.getRed() + color.getRed(),
+        return normColor(resultColor.getRed() + color.getRed(),
                 resultColor.getGreen() + color.getGreen(),
                 resultColor.getBlue() + color.getBlue());
     }
 
     private static Color mulColors(Color reflected, double kr) {
-        return new Color((int) (reflected.getRed() * kr), (int) (reflected.getGreen() * kr), (int) (reflected.getBlue() * kr));
+        return normColor((int) (reflected.getRed() * kr), (int) (reflected.getGreen() * kr), (int) (reflected.getBlue() * kr));
     }
 
     private static Vector3D reflectDirection(Vector3D incidentRay, Vector3D normal) {
@@ -177,5 +182,33 @@ public class Renderer {
 
         return new Vector3D(x, y, z);
 
+    }
+
+    /**
+     * make color component valid
+     *
+     * @param colorComponent
+     * @return valid component
+     */
+    static int normalize(double colorComponent) {
+        if (colorComponent > 255) {
+            return 255;
+        }
+        if (colorComponent < 0) {
+            return 0;
+        }
+        return (int) colorComponent;
+    }
+
+    /**
+     * make color valid
+     *
+     * @param r - not necessary valid color component
+     * @param g - not necessary valid color component
+     * @param b - not necessary valid color component
+     * @return valid color
+     */
+    static Color normColor(double r, double g, double b) {
+        return new Color(normalize(r), normalize(g), normalize(b));
     }
 }

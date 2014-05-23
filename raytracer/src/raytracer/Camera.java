@@ -18,7 +18,7 @@ public class Camera {
     private double cosAlZ;
     private double projPlaneDist;
 
-    public Camera(Vector3D origin, double alX, double alY, double alZ, double projPlaneDist) {
+    public Camera(Vector3D origin, double alX, double projPlaneDist) {
         this.origin = origin;
         this.worldPosition = new Vector3D(origin);
         this.alX = alX;
@@ -58,11 +58,11 @@ public class Camera {
     }
 
     public void moveCamera(Vector3D vector) {
-        Vector3D direction = Vector3D.rotateVectorX(vector, sinAlX, cosAlX);
-        direction = Vector3D.rotateVectorY(direction, sinAlY, cosAlY);
-        direction = Vector3D.rotateVectorZ(direction, sinAlZ, cosAlZ);
+        Vector3D direction = Vector3D.rotateVectorZ(vector, sinAlX, cosAlX);
+//        direction = Vector3D.rotateVectorY(direction, sinAlY, cosAlY);
+//        direction = Vector3D.rotateVectorZ(direction, sinAlZ, cosAlZ);
 
-        this.worldPosition.plus(direction);
+        worldPosition = worldPosition.plus(direction);
     }
 
     public double getProjPlaneDist() {
