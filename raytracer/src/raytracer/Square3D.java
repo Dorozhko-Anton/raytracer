@@ -51,7 +51,7 @@ public class Square3D implements SceneObject
 
     private void createPolygons(Vector3D normal, Vector3D rightUpperAngle, Vector3D leftUpperAngle, Vector3D rightUnderAngle, Vector3D leftUnderAngle)
     {
-       polygons.add(new Triangle3D(rightUpperAngle, rightUnderAngle, leftUnderAngle));
-       polygons.add(new Triangle3D(rightUpperAngle, leftUnderAngle, leftUpperAngle));
+       polygons.add(new Triangle3D(rightUpperAngle, rightUnderAngle, leftUnderAngle, normal));
+       polygons.add(new Triangle3D(rightUpperAngle, leftUnderAngle, leftUpperAngle, normal));
     }
 }

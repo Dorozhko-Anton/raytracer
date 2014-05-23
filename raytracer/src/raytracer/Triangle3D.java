@@ -9,14 +9,16 @@ public class Triangle3D implements SceneObject {
     private Vector3D v0;
     private Vector3D v1;
     private Vector3D v2;
+    private Vector3D normal;
 
     private Color color;
     private Material material;
 
-    public Triangle3D(Vector3D v0, Vector3D v1, Vector3D v2) {
+    public Triangle3D(Vector3D v0, Vector3D v1, Vector3D v2, Vector3D normal) {
         this.v0 = v0;
         this.v1 = v1;
         this.v2 = v2;
+        this.normal = normal;
     }
 
     public Triangle3D(Vector3D v0, Vector3D v1, Vector3D v2, Color color, Material material) {
@@ -61,7 +63,8 @@ public class Triangle3D implements SceneObject {
 
     @Override
     public Vector3D getNormal() {
-        return Vector3D.cross(v1.minus(v0), v2.minus(v0));
+        //return Vector3D.cross(v1.minus(v0), v2.minus(v0));
+        return normal;
     }
 
     @Override

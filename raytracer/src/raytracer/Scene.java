@@ -43,6 +43,8 @@ public class Scene {
 
     private void generateObjects()
     {
+        //wall's squares
+
         Vector3D normal = new Vector3D(0, LENGTH_WALL, 0);
         Square3D square = new Square3D(normal,
                 new Vector3D(LENGTH_WALL, 0, LENGTH_WALL), new Vector3D(0, 0, LENGTH_WALL),
@@ -173,6 +175,125 @@ public class Scene {
         square = new Square3D(normal,
                 new Vector3D(4 * LENGTH_WALL, 2 * LENGTH_WALL, LENGTH_WALL), new Vector3D(4 * LENGTH_WALL, 3 * LENGTH_WALL, LENGTH_WALL),
                 new Vector3D(4 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(4 * LENGTH_WALL, 3 * LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        //floor's squares
+
+        normal = new Vector3D(0, 0, LENGTH_WALL);
+        square = new Square3D(normal,
+                new Vector3D(LENGTH_WALL, LENGTH_WALL, 0), new Vector3D(LENGTH_WALL, 0, 0),
+                new Vector3D(0, LENGTH_WALL, 0), new Vector3D(0, 0, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(LENGTH_WALL, LENGTH_WALL, 0),
+                new Vector3D(0, 2 * LENGTH_WALL, 0), new Vector3D(0, LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(LENGTH_WALL, 3 * LENGTH_WALL, 0), new Vector3D(LENGTH_WALL, 2 * LENGTH_WALL, 0),
+                new Vector3D(0, 3 * LENGTH_WALL, 0), new Vector3D(0, 2 * LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(2 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(2 * LENGTH_WALL, LENGTH_WALL, 0),
+                new Vector3D(LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(LENGTH_WALL, LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(3 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(3 * LENGTH_WALL, LENGTH_WALL, 0),
+                new Vector3D(2 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(2 * LENGTH_WALL, LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(4 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(4 * LENGTH_WALL, LENGTH_WALL, 0),
+                new Vector3D(3 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(3 * LENGTH_WALL, LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(4 * LENGTH_WALL, 3 * LENGTH_WALL, 0), new Vector3D(4 * LENGTH_WALL, 2 * LENGTH_WALL, 0),
+                new Vector3D(3 * LENGTH_WALL, 3 * LENGTH_WALL, 0), new Vector3D(3 * LENGTH_WALL, 2 * LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+
+        //roof's squares
+
+        normal = new Vector3D(0, 0, -LENGTH_WALL);
+        square = new Square3D(normal,
+                new Vector3D(LENGTH_WALL, LENGTH_WALL, 0), new Vector3D(LENGTH_WALL, 0, 0),
+                new Vector3D(0, LENGTH_WALL, 0), new Vector3D(0, 0, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(LENGTH_WALL, LENGTH_WALL, 0),
+                new Vector3D(0, 2 * LENGTH_WALL, 0), new Vector3D(0, LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(LENGTH_WALL, 3 * LENGTH_WALL, 0), new Vector3D(LENGTH_WALL, 2 * LENGTH_WALL, 0),
+                new Vector3D(0, 3 * LENGTH_WALL, 0), new Vector3D(0, 2 * LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(2 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(2 * LENGTH_WALL, LENGTH_WALL, 0),
+                new Vector3D(LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(LENGTH_WALL, LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(3 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(3 * LENGTH_WALL, LENGTH_WALL, 0),
+                new Vector3D(2 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(2 * LENGTH_WALL, LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(4 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(4 * LENGTH_WALL, LENGTH_WALL, 0),
+                new Vector3D(3 * LENGTH_WALL, 2 * LENGTH_WALL, 0), new Vector3D(3 * LENGTH_WALL, LENGTH_WALL, 0));
+        for (SceneObject polygon : square.getPolygons())
+        {
+            objects.add(polygon);
+        }
+
+        square = new Square3D(normal,
+                new Vector3D(4 * LENGTH_WALL, 3 * LENGTH_WALL, 0), new Vector3D(4 * LENGTH_WALL, 2 * LENGTH_WALL, 0),
+                new Vector3D(3 * LENGTH_WALL, 3 * LENGTH_WALL, 0), new Vector3D(3 * LENGTH_WALL, 2 * LENGTH_WALL, 0));
         for (SceneObject polygon : square.getPolygons())
         {
             objects.add(polygon);
