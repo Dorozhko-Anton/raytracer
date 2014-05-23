@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 /**
@@ -15,9 +16,8 @@ public class SceneMap extends JFrame
     private static int LENGTH_UNIT = 50;
     private static double REDUCTION_COEFFICIENT = 0.5;
     private static int color = 255;
-
-    private BufferedImage bufferedImage;
     RenderFrame.RenderPanel renderPanel;
+    private BufferedImage bufferedImage;
 
     public SceneMap(final RenderFrame.RenderPanel renderPanel)
     {
@@ -49,6 +49,7 @@ public class SceneMap extends JFrame
                 if (checkPoint(e.getX(), e.getY()))
                 {
                     //TODO repaint scene
+                    renderPanel.changeCamerePosition(e.getX() * REDUCTION_COEFFICIENT, e.getY() * REDUCTION_COEFFICIENT);
                 }
             }
         };

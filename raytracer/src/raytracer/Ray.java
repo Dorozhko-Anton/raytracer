@@ -6,24 +6,21 @@ import java.awt.*;
  * Created by Anton on 21.05.2014.
  */
 public class Ray {
-    public Ray(Vector3D origin, Vector3D direction, double intensity) {
-        this.origin = origin;
-        this.direction = direction;
-        this.intensity = intensity;
-    }
-
     private Vector3D origin;
     private Vector3D direction;
-
     private double intensity;
     private Color rayColor;
-
-
     // intersect data
     private double lastIntersectTime;
     private Vector3D lastIntersectPoint;
     private double u;
     private double v;
+
+    public Ray(Vector3D origin, Vector3D direction, double intensity) {
+        this.origin = origin;
+        this.direction = direction;
+        this.intensity = intensity;
+    }
 
     public Ray(Ray ray) {
         origin = ray.origin;

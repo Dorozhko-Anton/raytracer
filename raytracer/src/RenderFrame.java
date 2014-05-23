@@ -59,6 +59,7 @@ public class RenderFrame {
     }
 
     class RenderPanel extends JPanel {
+        private static final double DR = 3;
         private BufferedImage renderedImage;
         private Scene scene;
         private RenderContext renderContext;
@@ -66,20 +67,22 @@ public class RenderFrame {
 
         RenderPanel() {
             scene = new Scene();
-            scene.addSceneObject(new Triangle3D(
-                    new Vector3D(-100, 130, -100),
-                    new Vector3D(100, 130, -100),
-                    new Vector3D(0, 130, 80),
-                    Color.blue,
-                    new Material(0.5, 0, 0, 0.3, 0, 0)
-            ));
-            camera = new Camera(new Vector3D(0, 0, 0),
-                    -Math.PI/2, 0, Math.PI, 320);
+//            scene.addSceneObject(new Triangle3D(
+//                    new Vector3D(-100, 130, -100),
+//                    new Vector3D(100, 130, -100),
+//                    new Vector3D(0, 130, 80),
+//                    Color.blue,
+//                    new Material(0.5, 0, 0, 0.3, 0, 0)
+//            ));
 
-            renderContext = new RenderContext(512, 512,
+            camera = new Camera(new Vector3D(0, 0, 0),
+                    -Math.PI / 2, 25);
+            camera.setWorldPosition(new Vector3D(0, 0, 15));
+
+            renderContext = new RenderContext(250, 250,
                     camera,
                     scene,
-                    Color.white);
+                    Color.black);
 
             renderedImage = Renderer.render(renderContext);
 
@@ -108,39 +111,40 @@ public class RenderFrame {
                             //camera.rotateCamera(-Math.PI / 36, 0, 0);
                             break;
                         case 'a':
-                            camera.rotateCamera(0, 0, Math.PI / 36);
+                            camera.rotateCamera(-Math.PI / 36, 0, 0);
                             break;
                         case 'd':
-                            camera.rotateCamera(0, 0, -Math.PI / 36);
-                            break;
-                        case 'i':
-                            camera.moveCamera(new Vector3D(0, 100, 0));
+                            camera.rotateCamera(Math.PI / 36, 0, 0);
                             break;
                         case 'k':
-                            camera.moveCamera(new Vector3D(0, -100, 0));
+                            camera.moveCamera(new Vector3D(DR, 0, 0));
                             break;
-                        case 'j':
-                            camera.moveCamera(new Vector3D(-100, 0, 0));
+                        case 'i':
+                            camera.moveCamera(new Vector3D(-DR, 0, 0));
                             break;
                         case 'l':
-                            camera.moveCamera(new Vector3D(100, 0, 0));
+                            camera.moveCamera(new Vector3D(0, -DR, 0));
+                            break;
+                        case 'j':
+                            camera.moveCamera(new Vector3D(0, DR, 0));
+                            break;
+                        case 'r':
+                            camera.moveCamera(new Vector3D(0, 0, DR));
+                            break;
+                        case 'f':
+                            camera.moveCamera(new Vector3D(0, 0, -DR));
                             break;
                     }
+                    System.out.println(camera.getWorldPosition());
                     renderedImage = Renderer.render(renderContext);
                     repaint();
                 }
             });
         }
 
-        public void changeCamerePosition()
+        public void changeCamerePosition(double x, double y)
         {
-            camera = new Camera(new Vector3D(0, 0, 0),
-                    -Math.PI/2, 0, Math.PI, 320);
-
-            renderContext = new RenderContext(512, 512,
-                    camera,
-                    scene,
-                    Color.white);
+            camera.setWorldPosition(new Vector3D(x, y, 15));
 
             renderedImage = Renderer.render(renderContext);
             repaint();
