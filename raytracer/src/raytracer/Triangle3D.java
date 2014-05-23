@@ -68,7 +68,7 @@ public class Triangle3D implements SceneObject {
     @Override
     public Vector3D getNormal() {
         //return Vector3D.cross(v1.minus(v0), v2.minus(v0));
-        return normal;
+
         if (normal != null) {
             return normal;
         }
