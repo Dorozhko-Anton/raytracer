@@ -1,7 +1,12 @@
 package raytracer;
 
+import org.json.simple.parser.ParseException;
+import utils.JsonSceneLoader;
+
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
+
 
 /**
  * Created by Anton on 21.05.2014.
@@ -10,12 +15,23 @@ public class Scene {
     private static double LENGTH_WALL = 30;
     private static Color SOURCE_1_COLOR = Color.YELLOW;
     private static Color SOURCE_2_COLOR = Color.BLUE;
+    //private ArrayList<SceneObject> objects = new ArrayList<SceneObject>();
     private ArrayList<SceneObject> objects = new ArrayList<SceneObject>();
     private ArrayList<LightSource3D> lightSource3Ds = new ArrayList<LightSource3D>();
 
     public Scene() {
-        generateObjects();
-        generateLightSources();
+        try
+        {
+            JsonSceneLoader.getSceneDescription(this);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        //generateObjects();
+        //generateLightSources();
     }
 
     public ArrayList<SceneObject> getObjects() {
@@ -39,8 +55,19 @@ public class Scene {
 //        kdTree.rebuild(objects);
 //    }
 
+    public void setSceneObjects(ArrayList<SceneObject> sceneObjects)
+    {
+        objects = sceneObjects;
+    }
+
+    public void setLightSources(ArrayList<LightSource3D> lightSource3Ds)
+    {
+        this.lightSource3Ds = lightSource3Ds;
+    }
+
     private void generateObjects()
     {
+        /*
         //wall's squares
 
         Vector3D normal = new Vector3D(0, LENGTH_WALL, 0);
@@ -296,13 +323,16 @@ public class Scene {
         {
             objects.add(polygon);
         }
+        */
     }
 
 
     private void generateLightSources() {
+        /*
         LightSource3D lightSource = new LightSource3D(new Vector3D(LENGTH_WALL / 2, LENGTH_WALL / 2, LENGTH_WALL), SOURCE_1_COLOR);
         addLightSource(lightSource);
         lightSource = new LightSource3D(new Vector3D(3.5 * LENGTH_WALL, 2.5 * LENGTH_WALL, LENGTH_WALL), SOURCE_2_COLOR);
         addLightSource(lightSource);
+        */
     }
 }

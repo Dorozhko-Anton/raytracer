@@ -1,6 +1,7 @@
 package raytracer;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Anton on 21.05.2014.
@@ -82,5 +83,13 @@ public class Triangle3D implements SceneObject {
     @Override
     public Color getColor() {
         return color;
+    }
+
+    @Override
+    public ArrayList<SceneObject> getPolygons()
+    {
+        ArrayList<SceneObject> polygons = new ArrayList<SceneObject>();
+        polygons.add(this);
+        return polygons;
     }
 }

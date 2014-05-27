@@ -58,7 +58,7 @@ public class SceneMap extends JFrame
 
         pack();
         setPreferredSize(new Dimension(MAP_WIDTH, MAP_HEIGHT));
-        setResizable(false);
+        // setResizable(false);
     }
 
     private boolean checkPoint(double x, double y)
