@@ -77,13 +77,13 @@ public class RenderFrame {
 //            ));
 
             camera = new Camera(new Vector3D(0, 0, 0),
-                    -Math.PI / 2, 25);
+                    0, 25);
             camera.setWorldPosition(new Vector3D(0, 0, 15));
 
-            renderContext = new RenderContext(250, 250,
+            renderContext = new RenderContext(200, 200,
                     camera,
                     scene,
-                    Color.black);
+                    Color.white);
 
             renderedImage = Renderer.render(renderContext);
 

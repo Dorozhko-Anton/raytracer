@@ -44,11 +44,15 @@ public class Vector3D {
     }
 
     public static double norm(Vector3D v) {
-        return Vector3D.dot(v, v);
+        return Math.sqrt(Vector3D.dot(v, v));
     }
 
     public static double dot(Vector3D v1, Vector3D v2) {
         return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+    }
+
+    public static Vector3D normalize(Vector3D v) {
+        return v.mul(1. / Vector3D.norm(v));
     }
 
     static Vector3D

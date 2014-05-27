@@ -12,18 +12,20 @@ public class Renderer {
 
     public static BufferedImage render(RenderContext renderContext) {
 
-        final int w = renderContext.getImageWidth();
-        final int h = renderContext.getImageHeight();
-        final double dx = w / 2.0;
-        final double dy = h / 2.0;
-        final double focus = renderContext.getCamera().getProjPlaneDist();
+        final int width = renderContext.getImageWidth();
+        final int height = renderContext.getImageHeight();
+        final double imageAspectRatio = width * 1. / height;
 
-        BufferedImage bufferedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        final double focus = renderContext.getCamera().getProjPlaneDist();
+        final double angle = Math.tan(Math.PI / 4);
+
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         for (int i = 0; i < renderContext.getImageWidth(); i++) {
             for (int j = 0; j < renderContext.getImageHeight(); j++) {
-                final double x = i - dx;
-                final double y = j - dy;
-                final Vector3D direction = new Vector3D(focus, x, y);
+                final double x = (2 * (i + 0.5) / width - 1) * angle * imageAspectRatio;
+                final double y = (1 - 2 * (j + 0.5) / height) * angle;
+
+                final Vector3D direction = new Vector3D(1, x, y).mul(focus);
 
                 final Color col = trace(direction, renderContext);
 
@@ -35,7 +37,8 @@ public class Renderer {
 
     public static Color trace(Vector3D r, RenderContext renderContext) {
         Camera camera = renderContext.getCamera();
-        r = Vector3D.rotateVectorZ(r, camera.getSinAlX(), camera.getCosAlX());
+        r = Vector3D.normalize(Vector3D.rotateVectorZ(r, camera.getSinAlX(), camera.getCosAlX()));
+
         // r = Vector3D.rotateVectorY(r, camera.getSinAlY(), camera.getCosAlY());
         //r = Vector3D.rotateVectorZ(r, camera.getSinAlZ(), camera.getCosAlZ());
 
@@ -80,6 +83,7 @@ public class Renderer {
         if (material.getKa() > 0) {
             ambient = mixColors(renderContext.getBackgroundColor(),
                     sceneObject.getColor());
+
             resultColor = addColors(resultColor,
                     mulColors(ambient, material.getKa()));
         }
@@ -126,7 +130,7 @@ public class Renderer {
         for (LightSource3D lightSource : renderContext.getScene().getLightSource3Ds()) {
             if (isViewable(lightSource.getOrigin(), r.getLastIntersectPoint(), renderContext)) {
                 Vector3D distance = r.getLastIntersectPoint().minus(lightSource.getOrigin());
-                lightColor = addColors(lightColor, mulColors(lightSource.getColor(), 100 / Vector3D.dot(distance, distance)));
+                lightColor = addColors(lightColor, mulColors(lightSource.getColor(), 1000 / Vector3D.dot(distance, distance)));
             }
         }
         return lightColor;
