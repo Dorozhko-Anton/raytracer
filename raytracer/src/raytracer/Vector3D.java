@@ -92,6 +92,21 @@ public class Vector3D {
         );
     }
 
+    public double getX()
+    {
+        return x;
+    }
+
+    public double getY()
+    {
+        return y;
+    }
+
+    public double getZ()
+    {
+        return z;
+    }
+
     public Vector3D mul(double t) {
         return new Vector3D(x * t, y * t, z * t);
     }

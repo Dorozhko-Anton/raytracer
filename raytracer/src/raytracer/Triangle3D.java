@@ -12,6 +12,12 @@ public class Triangle3D implements SceneObject {
     private Vector3D v1;
     private Vector3D v2;
     private Vector3D normal;
+    private double minX;
+    private double maxX;
+    private double minY;
+    private double maxY;
+    private double minZ;
+    private double maxZ;
 
     private Color color;
     private Material material;
@@ -21,6 +27,8 @@ public class Triangle3D implements SceneObject {
         this.v1 = v1;
         this.v2 = v2;
         this.normal = normal;
+
+        createBounds();
     }
 
     public Triangle3D(Vector3D v0, Vector3D v1, Vector3D v2, Color color, Material material, Vector3D normal) {
@@ -30,6 +38,8 @@ public class Triangle3D implements SceneObject {
         this.color = color;
         this.material = material;
         this.normal = normal;
+
+        createBounds();
 
         //normal = Vector3D.cross(v1.minus(v0), v2.minus(v0));
 //        d = -(v0.x * normal.x + v0.y * normal.y + v0.z * normal.z);
@@ -91,5 +101,62 @@ public class Triangle3D implements SceneObject {
         ArrayList<SceneObject> polygons = new ArrayList<SceneObject>();
         polygons.add(this);
         return polygons;
+    }
+
+    @Override
+    public double getMinX()
+    {
+        return minX;
+    }
+
+    @Override
+    public double getMaxX()
+    {
+        return maxX;
+    }
+
+    @Override
+    public double getMinY()
+    {
+        return minY;
+    }
+
+    @Override
+    public double getMaxY()
+    {
+        return maxY;
+    }
+
+    @Override
+    public double getMinZ()
+    {
+        return minZ;
+    }
+
+    @Override
+    public double getMaxZ()
+    {
+        return maxZ;
+    }
+
+    private void createBounds()
+    {
+        minX = (v0.getX() < v1.getX()) ? v0.getX() : v1.getX();
+        minX = (minX < v2.getX()) ? minX : v2.getX();
+
+        maxX = (v0.getX() > v1.getX()) ? v0.getX() : v1.getX();
+        maxX = (maxX > v2.getX()) ? maxX : v2.getX();
+
+        minY = (v0.getY() < v1.getY()) ? v0.getY() : v1.getY();
+        minY = (minY < v2.getY()) ? minY : v2.getY();
+
+        maxY = (v0.getY() > v1.getY()) ? v0.getY() : v1.getY();
+        maxY = (maxY > v2.getY()) ? maxY : v2.getY();
+
+        minZ = (v0.getZ() < v1.getZ()) ? v0.getZ() : v1.getZ();
+        minZ = (minZ < v2.getZ()) ? minZ : v2.getZ();
+
+        maxZ = (v0.getZ() > v1.getZ()) ? v0.getZ() : v1.getZ();
+        maxZ = (maxZ > v2.getZ()) ? maxZ : v2.getZ();
     }
 }

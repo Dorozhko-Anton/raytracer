@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * Created by Anton on 22.05.2014.
@@ -148,6 +149,11 @@ public class RenderFrame {
 
             renderedImage = Renderer.render(renderContext);
             repaint();
+        }
+
+        public ArrayList<SceneObject> getSceneObjects()
+        {
+            return scene.getObjects();
         }
 
         @Override

@@ -18,4 +18,16 @@ public interface SceneObject
 
     ArrayList<SceneObject> getPolygons();
 
+    double getMinX();
+
+    double getMaxX();
+
+    double getMinY();
+
+    double getMaxY();
+
+    double getMinZ();
+
+    double getMaxZ();
+
 }
