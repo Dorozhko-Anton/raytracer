@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Square3D implements SceneObject {
     private Color color = Color.white;
-    private Material material = new Material(0.2, 0.5, 0.3);
+    private Material material = new Material(0.2, 0.8, 0);
     private Vector3D normal;
     private ArrayList<SceneObject> polygons;
     private double minX;
@@ -18,8 +18,7 @@ public class Square3D implements SceneObject {
     private double minZ;
     private double maxZ;
 
-    public Square3D(Vector3D normal, Vector3D rightUpperAngle, Vector3D leftUpperAngle, Vector3D rightUnderAngle, Vector3D leftUnderAngle)
-    {
+    public Square3D(Vector3D normal, Vector3D rightUpperAngle, Vector3D leftUpperAngle, Vector3D rightUnderAngle, Vector3D leftUnderAngle) {
         this.normal = normal;
         polygons = new ArrayList<SceneObject>();
         createPolygons(normal, rightUpperAngle, leftUpperAngle, rightUnderAngle, leftUnderAngle);
@@ -27,8 +26,7 @@ public class Square3D implements SceneObject {
         generateBounds(rightUpperAngle, leftUpperAngle, rightUnderAngle, leftUnderAngle);
     }
 
-    public Square3D(Vector3D normal, Vector3D rightUpperAngle, Vector3D leftUpperAngle, Vector3D rightUnderAngle, Vector3D leftUnderAngle, Color color, Material material)
-    {
+    public Square3D(Vector3D normal, Vector3D rightUpperAngle, Vector3D leftUpperAngle, Vector3D rightUnderAngle, Vector3D leftUnderAngle, Color color, Material material) {
         this.normal = normal;
         polygons = new ArrayList<SceneObject>();
         this.color = color;
@@ -38,68 +36,57 @@ public class Square3D implements SceneObject {
         generateBounds(rightUpperAngle, leftUpperAngle, rightUnderAngle, leftUnderAngle);
     }
 
-    public ArrayList<SceneObject> getPolygons()
-    {
+    public ArrayList<SceneObject> getPolygons() {
         return polygons;
     }
 
     @Override
-    public double getMinX()
-    {
+    public double getMinX() {
         return minX;
     }
 
     @Override
-    public double getMaxX()
-    {
+    public double getMaxX() {
         return maxX;
     }
 
     @Override
-    public double getMinY()
-    {
+    public double getMinY() {
         return minY;
     }
 
     @Override
-    public double getMaxY()
-    {
+    public double getMaxY() {
         return maxY;
     }
 
     @Override
-    public double getMinZ()
-    {
+    public double getMinZ() {
         return minZ;
     }
 
     @Override
-    public double getMaxZ()
-    {
+    public double getMaxZ() {
         return maxZ;
     }
 
     @Override
-    public boolean intersect(Ray r)
-    {
+    public boolean intersect(Ray r) {
         return false;
     }
 
     @Override
-    public Material getMaterial()
-    {
+    public Material getMaterial() {
         return material;
     }
 
     @Override
-    public Vector3D getNormal()
-    {
+    public Vector3D getNormal() {
         return normal;
     }
 
     @Override
-    public Color getColor()
-    {
+    public Color getColor() {
         return color;
     }
 
@@ -108,8 +95,7 @@ public class Square3D implements SceneObject {
         polygons.add(new Triangle3D(rightUpperAngle, leftUnderAngle, leftUpperAngle, color, material, normal));
     }
 
-    private void generateBounds(Vector3D rightUpperAngle, Vector3D leftUpperAngle, Vector3D rightUnderAngle, Vector3D leftUnderAngle)
-    {
+    private void generateBounds(Vector3D rightUpperAngle, Vector3D leftUpperAngle, Vector3D rightUnderAngle, Vector3D leftUnderAngle) {
         double minUpperX = (rightUpperAngle.getX() < leftUpperAngle.getX()) ? rightUpperAngle.getX() : leftUpperAngle.getX();
         double minUnderX = (rightUnderAngle.getX() < leftUnderAngle.getX()) ? rightUnderAngle.getX() : leftUnderAngle.getX();
         minX = (minUnderX < minUpperX) ? minUnderX : minUpperX;

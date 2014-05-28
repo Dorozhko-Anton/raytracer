@@ -80,12 +80,14 @@ public class RenderFrame {
                     0, 25);
             camera.setWorldPosition(new Vector3D(0, 0, 15));
 
-            renderContext = new RenderContext(200, 200,
+            renderContext = new RenderContext(250, 250,
                     camera,
                     scene,
                     Color.white);
 
-            renderedImage = Renderer.render(renderContext);
+            //renderedImage = Renderer.render(renderContext);
+
+            renderedImage = ForkJoinRenderer.render(renderContext);
 
             setFocusable(true);
             addMouseListener(new MouseAdapter()
@@ -137,7 +139,8 @@ public class RenderFrame {
                             break;
                     }
                     System.out.println(camera.getWorldPosition());
-                    renderedImage = Renderer.render(renderContext);
+                    //renderedImage = Renderer.render(renderContext);
+                    renderedImage = ForkJoinRenderer.render(renderContext);
                     repaint();
                 }
             });

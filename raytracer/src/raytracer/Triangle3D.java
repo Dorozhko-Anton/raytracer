@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Anton on 21.05.2014.
  */
 public class Triangle3D implements SceneObject {
-    private static final double EPSILON = 10e-6;
+    private static final double EPSILON = 10e-4;
     private Vector3D v0;
     private Vector3D v1;
     private Vector3D v2;

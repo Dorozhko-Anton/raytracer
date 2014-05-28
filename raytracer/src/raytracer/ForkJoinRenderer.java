@@ -1,18 +1,53 @@
 package raytracer;
 
+/**
+ * Created by Anton on 29.05.2014.
+ */
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveAction;
 
-/**
- * Created by Anton on 21.05.2014.
- */
-public class Renderer {
+
+public class ForkJoinRenderer extends RecursiveAction {
     // number of secondary rays
     private static final int MAX_RAY_RECURSION_LEVEL = 1;
     private static final double THRESHOLD_RAY_INTENSITY = 0.1;
 
-    public static BufferedImage render(RenderContext renderContext) {
+    private static final int THRESHOLD = 500;
 
+    private RenderContext renderContext;
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    private BufferedImage image;
+    private int start;
+    private int length;
+
+    public ForkJoinRenderer(RenderContext renderContext, BufferedImage image, int start, int length) {
+        this.renderContext = renderContext;
+        this.image = image;
+        this.start = start;
+        this.length = length;
+    }
+
+    @Override
+    protected void compute() {
+        if (length < THRESHOLD) {
+            computeDirectly();
+            return;
+        }
+
+        int split = length / 2;
+
+        invokeAll(new ForkJoinRenderer(renderContext, image, start, split),
+                new ForkJoinRenderer(renderContext, image, start + split, length - split));
+    }
+
+    private void computeDirectly() {
         final int width = renderContext.getImageWidth();
         final int height = renderContext.getImageHeight();
         final double imageAspectRatio = width * 1. / height;
@@ -20,19 +55,38 @@ public class Renderer {
         final double focus = renderContext.getCamera().getProjPlaneDist();
         final double angle = Math.tan(Math.PI / 4);
 
-        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        for (int i = 0; i < renderContext.getImageWidth(); i++) {
-            for (int j = 0; j < renderContext.getImageHeight(); j++) {
-                final double x = (2 * (i + 0.5) / width - 1) * angle * imageAspectRatio;
-                final double y = (1 - 2 * (j + 0.5) / height) * angle;
+        // anneal work space with start & length parameters
+        for (int k = start; k < start + length; k++) {
 
-                final Vector3D direction = new Vector3D(1, x, y).mul(focus);
+            int i = k / width;
+            int j = k % width;
 
-                final Color col = trace(direction, renderContext);
+            final double x = (2 * (i + 0.5) / width - 1) * angle * imageAspectRatio;
+            final double y = (1 - 2 * (j + 0.5) / height) * angle;
 
-                bufferedImage.setRGB(i, j, col.getRGB());
-            }
+            final Vector3D direction = new Vector3D(1, x, y).mul(focus);
+
+            final Color col = trace(direction, renderContext);
+
+            image.setRGB(i, j, col.getRGB());
+
         }
+
+    }
+
+    public static BufferedImage render(RenderContext renderContext) {
+
+
+        BufferedImage bufferedImage = new BufferedImage(renderContext.getImageWidth(),
+                renderContext.getImageHeight(), BufferedImage.TYPE_INT_RGB);
+
+        ForkJoinRenderer forkJoinRenderer = new ForkJoinRenderer(renderContext, bufferedImage, 0,
+                renderContext.getImageHeight() * renderContext.getImageWidth());
+
+        ForkJoinPool pool = new ForkJoinPool();
+
+        pool.invoke(forkJoinRenderer);
+
         return bufferedImage;
     }
 
@@ -113,11 +167,12 @@ public class Renderer {
 
                 reflected = traceRecursively(reflectedRay, renderContext, recursionLevel + 1);
 
+                resultColor = addColors(resultColor,
+                        mulColors(reflected, material.getKr()));
             } else {
-                reflected = renderContext.getBackgroundColor();
+                //reflected = renderContext.getBackgroundColor();
             }
-            resultColor = addColors(resultColor,
-                    mulColors(reflected, material.getKr()));
+
         }
 
         return resultColor;
@@ -134,9 +189,6 @@ public class Renderer {
         return lightColor;
     }
 
-    private static double cosVectors(Vector3D normal, Vector3D v_ls) {
-        return Vector3D.dot(normal, v_ls) / (Vector3D.norm(v_ls) * Vector3D.norm(normal));
-    }
 
     private static boolean isViewable(Vector3D origin, Vector3D target, RenderContext renderContext) {
         Vector3D nearestPoint = null;
@@ -213,4 +265,6 @@ public class Renderer {
     static Color normColor(double r, double g, double b) {
         return new Color(normalize(r), normalize(g), normalize(b));
     }
+
+
 }
