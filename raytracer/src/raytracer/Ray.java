@@ -34,6 +34,10 @@ public class Ray {
 
     }
 
+    public Vector3D getPoint(double time) {
+        return origin.plus(direction.mul(time));
+    }
+
     public double getU() {
         return u;
     }

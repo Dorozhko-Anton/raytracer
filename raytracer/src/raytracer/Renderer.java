@@ -57,7 +57,7 @@ public class Renderer {
 
         for (SceneObject sceneObject : renderContext.getScene().getObjects()) {
             if (sceneObject.intersect(r)) {
-                if (r.getLastIntersectTime() < nearestTime) {
+                if (r.getLastIntersectTime() < nearestTime && r.getLastIntersectTime() > 0) {
                     nearestTime = r.getLastIntersectTime();
                     nearestObject = sceneObject;
                 }

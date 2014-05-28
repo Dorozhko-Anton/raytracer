@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Scene {
     private static double LENGTH_WALL = 30;
-    private static Color SOURCE_1_COLOR = Color.WHITE;
+    private static Color SOURCE_1_COLOR = Color.GREEN;
     private static Color SOURCE_2_COLOR = Color.RED;
     //private ArrayList<SceneObject> objects = new ArrayList<SceneObject>();
     private ArrayList<SceneObject> objects = new ArrayList<SceneObject>();

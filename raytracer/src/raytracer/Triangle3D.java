@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Anton on 21.05.2014.
  */
 public class Triangle3D implements SceneObject {
-    private static final double EPSILON = 10e-4;
+    private static final double EPSILON = 10e-6;
     private Vector3D v0;
     private Vector3D v1;
     private Vector3D v2;
@@ -26,8 +26,9 @@ public class Triangle3D implements SceneObject {
         this.v0 = v0;
         this.v1 = v1;
         this.v2 = v2;
-        this.normal = normal;
+        this.normal = Vector3D.normalize(normal);
 
+        rearrangeVecticies();
         createBounds();
     }
 
@@ -37,22 +38,100 @@ public class Triangle3D implements SceneObject {
         this.v2 = v2;
         this.color = color;
         this.material = material;
-        this.normal = normal;
+        this.normal = Vector3D.normalize(normal);
 
+        rearrangeVecticies();
         createBounds();
 
         //normal = Vector3D.cross(v1.minus(v0), v2.minus(v0));
 //        d = -(v0.x * normal.x + v0.y * normal.y + v0.z * normal.z);
     }
 
+    private void rearrangeVecticies() {
+
+        if (normal.equals(Vector3D.normalize(Vector3D.cross(v2.minus(v0), v1.minus(v0))))) {
+            Vector3D tmp = v1;
+            v1 = v2;
+            v2 = tmp;
+            // v0 = v0;
+            return;
+        }
+
+        if (normal.equals(Vector3D.normalize(Vector3D.cross(v0.minus(v1), v2.minus(v1))))) {
+            Vector3D tmp = v1;
+            v1 = v0;
+            //v2 = v2;
+            v0 = tmp;
+            return;
+        }
+        if (normal.equals(Vector3D.normalize(Vector3D.cross(v2.minus(v1), v0.minus(v1))))) {
+            Vector3D tmp = v1;
+            v1 = v2;
+            v2 = v0;
+            v0 = tmp;
+            return;
+        }
+        if (normal.equals(Vector3D.normalize(Vector3D.cross(v0.minus(v2), v1.minus(v2))))) {
+            Vector3D tmp = v2;
+            v1 = v0;
+            v2 = v1;
+            v0 = tmp;
+            return;
+        }
+
+        if (normal.equals(Vector3D.normalize(Vector3D.cross(v1.minus(v2), v0.minus(v2))))) {
+            Vector3D tmp = v2;
+            //v1 = v1;
+            v2 = v0;
+            v0 = tmp;
+            return;
+        }
+    }
+
+
     @Override
     public boolean intersect(Ray r) {
+
+//        Vector3D v0v1 = v1.minus(v0);
+//        Vector3D v0v2 = v2.minus(v0);
+//
+//
+//        double nDotRay = Vector3D.dot(normal, r.getDirection());
+//        if (Vector3D.dot(normal, r.getDirection()) == 0) return false; // ray parallel to triangle
+//        double d = Vector3D.dot(normal, v0);
+//        double t = -(Vector3D.dot(normal, r.getOrigin()) + d) / nDotRay;
+//
+//        // inside-out test
+//        Vector3D Phit = r.getPoint(t);
+//
+//        // inside-out test edge0
+//        Vector3D v0p = Phit.minus(v0);
+//        double v = Vector3D.dot(normal, Vector3D.cross(v0v1, v0p));
+//        if (v < 0) return false; // P outside triangle
+//
+//        // inside-out test edge1
+//        Vector3D v1p = Phit.minus(v1);
+//        Vector3D v1v2 = v2.minus(v1);
+//        double w = Vector3D.dot(normal, Vector3D.cross(v1v2, v1p));
+//        if (w < 0) return false; // P outside triangle
+//
+//        // inside-out test edge2
+//        Vector3D v2p = Phit.minus(v2);
+//        Vector3D v2v0 = v0.minus(v2);
+//        double u = Vector3D.dot(normal, Vector3D.cross(v2v0, v2p));
+//        if (u < 0) return false; // P outside triangle
+//
+//        r.setLastIntersectTime(t);
+//
+//        return true;
+
         //Möller-Trumbore algorithm
+        // appered as bad variant, cause our points not arrange to give needed normal
         Vector3D edge1 = v1.minus(v0);
         Vector3D edge2 = v2.minus(v0);
         Vector3D pvec = Vector3D.cross(r.getDirection(), edge2);
         double det = Vector3D.dot(edge1, pvec);
-        if (det > -EPSILON && det < EPSILON) return false;
+        if (det < EPSILON) return false;
         double invDet = 1 / det;
         Vector3D tvec = r.getOrigin().minus(v0);
 
@@ -86,7 +165,7 @@ public class Triangle3D implements SceneObject {
         return Vector3D.cross(v1.minus(v0), v2.minus(v0));
     }
 
-    public void setNormal(Vector3D normal) {
+    public void setnormalormal(Vector3D normal) {
         this.normal = normal;
     }
 
