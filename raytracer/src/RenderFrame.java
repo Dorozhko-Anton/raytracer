@@ -118,16 +118,16 @@ public class RenderFrame {
                             camera.rotateCamera(Math.PI / 36, 0, 0);
                             break;
                         case 'k':
-                            camera.moveCamera(new Vector3D(DR, 0, 0));
-                            break;
-                        case 'i':
                             camera.moveCamera(new Vector3D(-DR, 0, 0));
                             break;
+                        case 'i':
+                            camera.moveCamera(new Vector3D(DR, 0, 0));
+                            break;
                         case 'l':
-                            camera.moveCamera(new Vector3D(0, -DR, 0));
+                            camera.moveCamera(new Vector3D(0, DR, 0));
                             break;
                         case 'j':
-                            camera.moveCamera(new Vector3D(0, DR, 0));
+                            camera.moveCamera(new Vector3D(0, -DR, 0));
                             break;
                         case 'r':
                             camera.moveCamera(new Vector3D(0, 0, DR));
