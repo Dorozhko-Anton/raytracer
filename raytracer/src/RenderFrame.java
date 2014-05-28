@@ -20,6 +20,7 @@ public class RenderFrame {
         final MainFrame mainFrame = new MainFrame("Лабораторная работа №4");
 
 
+        JMenu actions = new JMenu("Команды");
 
         AbstractAction leftTurn = new AbstractAction("Поворот налево (a)", null) {
             @Override
@@ -30,7 +31,7 @@ public class RenderFrame {
         };
         leftTurn.putValue(AbstractAction.SHORT_DESCRIPTION, "Поворот направо на 5 градусов");
         mainFrame.addAction(leftTurn);
-        mainFrame.getAboutMenu().add(leftTurn);
+        actions.add(leftTurn);
 
         AbstractAction rightTurn = new AbstractAction("Поворот направо (d)", null) {
             @Override
@@ -42,7 +43,7 @@ public class RenderFrame {
         };
         rightTurn.putValue(AbstractAction.SHORT_DESCRIPTION, "Поворот налево на 5 градусов");
         mainFrame.addAction(rightTurn);
-        mainFrame.getAboutMenu().add(rightTurn);
+        actions.add(rightTurn);
 
         AbstractAction forward = new AbstractAction("Вперед (i)", null) {
             @Override
@@ -53,7 +54,7 @@ public class RenderFrame {
         };
         forward.putValue(AbstractAction.SHORT_DESCRIPTION, "Вперед!!!");
         mainFrame.addAction(forward);
-        mainFrame.getAboutMenu().add(forward);
+        actions.add(forward);
 
         AbstractAction backward = new AbstractAction("Назад (k)", null) {
             @Override
@@ -64,7 +65,7 @@ public class RenderFrame {
         };
         backward.putValue(AbstractAction.SHORT_DESCRIPTION, "Назад!!!");
         mainFrame.addAction(backward);
-        mainFrame.getAboutMenu().add(backward);
+        actions.add(backward);
 
         AbstractAction stepLeft = new AbstractAction("Шаг влево (j)", null) {
             @Override
@@ -75,7 +76,7 @@ public class RenderFrame {
         };
         stepLeft.putValue(AbstractAction.SHORT_DESCRIPTION, "Шаг влево!!!");
         mainFrame.addAction(stepLeft);
-        mainFrame.getAboutMenu().add(stepLeft);
+        actions.add(stepLeft);
 
         AbstractAction stepRight = new AbstractAction("Шаг вправо (l)", null) {
             @Override
@@ -86,7 +87,7 @@ public class RenderFrame {
         };
         stepRight.putValue(AbstractAction.SHORT_DESCRIPTION, "Шаг вправо!!!");
         mainFrame.addAction(stepRight);
-        mainFrame.getAboutMenu().add(stepRight);
+        actions.add(stepRight);
 
         AbstractAction contacts = new AbstractAction("Контакты", MainFrame.createImageIcon("/images/contacts.png")) {
             @Override
@@ -118,6 +119,7 @@ public class RenderFrame {
             }
         };
 
+        mainFrame.addMenu(actions);
         mainFrame.addAction(exitAction);
 
         mainFrame.getFileMenu().add(exitAction);
