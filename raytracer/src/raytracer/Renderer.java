@@ -26,7 +26,9 @@ public class Renderer {
                 final double y = (1 - 2 * (j + 0.5) / height) * angle;
 
                 final Vector3D direction = new Vector3D(1, x, y).mul(focus);
-
+                    if (i == 120 && j == 120) {
+                        System.out.println("!!!");
+                    }
                 final Color col = trace(direction, renderContext);
 
                 bufferedImage.setRGB(i, j, col.getRGB());
@@ -64,6 +66,7 @@ public class Renderer {
             }
         }
         if (nearestObject != null) {
+            r.setLastIntersectTime(nearestTime);
             return calculateColor(renderContext, nearestObject, r, recursionLevel);
         }
         return renderContext.getBackgroundColor();
