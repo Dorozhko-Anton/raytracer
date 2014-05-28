@@ -24,29 +24,18 @@ public class Square3D implements SceneObject {
         polygons = new ArrayList<SceneObject>();
         createPolygons(normal, rightUpperAngle, leftUpperAngle, rightUnderAngle, leftUnderAngle);
 
-        double minUpperX = (rightUpperAngle.getX() < leftUpperAngle.getX()) ? rightUpperAngle.getX() : leftUpperAngle.getX();
-        double minUnderX = (rightUnderAngle.getX() < leftUnderAngle.getX()) ? rightUnderAngle.getX() : leftUnderAngle.getX();
-        minX = (minUnderX < minUpperX) ? minUnderX : minUpperX;
+        generateBounds(rightUpperAngle, leftUpperAngle, rightUnderAngle, leftUnderAngle);
+    }
 
-        double maxUpperX = (rightUpperAngle.getX() > leftUpperAngle.getX()) ? rightUpperAngle.getX() : leftUpperAngle.getX();
-        double maxUnderX = (rightUnderAngle.getX() > leftUnderAngle.getX()) ? rightUnderAngle.getX() : leftUnderAngle.getX();
-        maxX = (maxUpperX > maxUnderX) ? maxUpperX : maxUnderX;
+    public Square3D(Vector3D normal, Vector3D rightUpperAngle, Vector3D leftUpperAngle, Vector3D rightUnderAngle, Vector3D leftUnderAngle, Color color, Material material)
+    {
+        this.normal = normal;
+        polygons = new ArrayList<SceneObject>();
+        this.color = color;
+        this.material = material;
+        createPolygons(normal, rightUpperAngle, leftUpperAngle, rightUnderAngle, leftUnderAngle);
 
-        double minUpperY = (rightUpperAngle.getY() < leftUpperAngle.getY()) ? rightUpperAngle.getY() : leftUpperAngle.getY();
-        double minUnderY = (rightUnderAngle.getY() < leftUnderAngle.getY()) ? rightUnderAngle.getY() : leftUnderAngle.getY();
-        minY = (minUnderY < minUpperY) ? minUnderY : minUpperY;
-
-        double maxUpperY = (rightUpperAngle.getY() > leftUpperAngle.getY()) ? rightUpperAngle.getY() : leftUpperAngle.getY();
-        double maxUnderY = (rightUnderAngle.getY() > leftUnderAngle.getY()) ? rightUnderAngle.getY() : leftUnderAngle.getY();
-        maxY = (maxUpperY > maxUnderY) ? maxUpperY : maxUnderY;
-
-        double minUpperZ = (rightUpperAngle.getZ() < leftUpperAngle.getZ()) ? rightUpperAngle.getZ() : leftUpperAngle.getZ();
-        double minUnderZ = (rightUnderAngle.getZ() < leftUnderAngle.getZ()) ? rightUnderAngle.getZ() : leftUnderAngle.getZ();
-        minZ = (minUnderZ < minUpperZ) ? minUnderZ : minUpperZ;
-
-        double maxUpperZ = (rightUpperAngle.getZ() > leftUpperAngle.getZ()) ? rightUpperAngle.getZ() : leftUpperAngle.getZ();
-        double maxUnderZ = (rightUnderAngle.getZ() > leftUnderAngle.getZ()) ? rightUnderAngle.getZ() : leftUnderAngle.getZ();
-        maxZ = (maxUpperZ > maxUnderZ) ? maxUpperZ : maxUnderZ;
+        generateBounds(rightUpperAngle, leftUpperAngle, rightUnderAngle, leftUnderAngle);
     }
 
     public ArrayList<SceneObject> getPolygons()
@@ -117,5 +106,32 @@ public class Square3D implements SceneObject {
     private void createPolygons(Vector3D normal, Vector3D rightUpperAngle, Vector3D leftUpperAngle, Vector3D rightUnderAngle, Vector3D leftUnderAngle) {
         polygons.add(new Triangle3D(rightUpperAngle, rightUnderAngle, leftUnderAngle, color, material, normal));
         polygons.add(new Triangle3D(rightUpperAngle, leftUnderAngle, leftUpperAngle, color, material, normal));
+    }
+
+    private void generateBounds(Vector3D rightUpperAngle, Vector3D leftUpperAngle, Vector3D rightUnderAngle, Vector3D leftUnderAngle)
+    {
+        double minUpperX = (rightUpperAngle.getX() < leftUpperAngle.getX()) ? rightUpperAngle.getX() : leftUpperAngle.getX();
+        double minUnderX = (rightUnderAngle.getX() < leftUnderAngle.getX()) ? rightUnderAngle.getX() : leftUnderAngle.getX();
+        minX = (minUnderX < minUpperX) ? minUnderX : minUpperX;
+
+        double maxUpperX = (rightUpperAngle.getX() > leftUpperAngle.getX()) ? rightUpperAngle.getX() : leftUpperAngle.getX();
+        double maxUnderX = (rightUnderAngle.getX() > leftUnderAngle.getX()) ? rightUnderAngle.getX() : leftUnderAngle.getX();
+        maxX = (maxUpperX > maxUnderX) ? maxUpperX : maxUnderX;
+
+        double minUpperY = (rightUpperAngle.getY() < leftUpperAngle.getY()) ? rightUpperAngle.getY() : leftUpperAngle.getY();
+        double minUnderY = (rightUnderAngle.getY() < leftUnderAngle.getY()) ? rightUnderAngle.getY() : leftUnderAngle.getY();
+        minY = (minUnderY < minUpperY) ? minUnderY : minUpperY;
+
+        double maxUpperY = (rightUpperAngle.getY() > leftUpperAngle.getY()) ? rightUpperAngle.getY() : leftUpperAngle.getY();
+        double maxUnderY = (rightUnderAngle.getY() > leftUnderAngle.getY()) ? rightUnderAngle.getY() : leftUnderAngle.getY();
+        maxY = (maxUpperY > maxUnderY) ? maxUpperY : maxUnderY;
+
+        double minUpperZ = (rightUpperAngle.getZ() < leftUpperAngle.getZ()) ? rightUpperAngle.getZ() : leftUpperAngle.getZ();
+        double minUnderZ = (rightUnderAngle.getZ() < leftUnderAngle.getZ()) ? rightUnderAngle.getZ() : leftUnderAngle.getZ();
+        minZ = (minUnderZ < minUpperZ) ? minUnderZ : minUpperZ;
+
+        double maxUpperZ = (rightUpperAngle.getZ() > leftUpperAngle.getZ()) ? rightUpperAngle.getZ() : leftUpperAngle.getZ();
+        double maxUnderZ = (rightUnderAngle.getZ() > leftUnderAngle.getZ()) ? rightUnderAngle.getZ() : leftUnderAngle.getZ();
+        maxZ = (maxUpperZ > maxUnderZ) ? maxUpperZ : maxUnderZ;
     }
 }

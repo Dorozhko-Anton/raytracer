@@ -12,8 +12,8 @@
 //import java.util.ArrayList;
 //
 ///**
-// * Created by shellariandra on 27.05.14.
-// */
+//* Created by shellariandra on 27.05.14.
+//*/
 //public class JsonSceneLoader
 //{
 //    private static String filename = "raytracer/res/SceneDescription";
@@ -37,7 +37,7 @@
 //        for (int i = 0; i < numberOfObjects; ++i)
 //        {
 //            JSONObject sceneObject = (JSONObject) objects.get(i);
-//            ArrayList<SceneObject> lst = parseObject(sceneObject.get("type").toString(), (JSONArray) sceneObject.get("vectors"));
+//            ArrayList<SceneObject> lst = parseObject(sceneObject.get("type").toString(), (JSONArray) sceneObject.get("vectors"), sceneObject.get("color").toString(), (JSONObject) sceneObject.get("material"));
 //            for (SceneObject object : lst)
 //            {
 //                sceneObjects.add(object);
@@ -50,7 +50,7 @@
 //            Vector3D position = new Vector3D(Double.parseDouble(light.get("x").toString()),
 //                    Double.parseDouble(light.get("y").toString()),
 //                    Double.parseDouble(light.get("z").toString()));
-//            sceneLightSources.add(new LightSource3D(position, new Color(Integer.parseInt(light.get("color").toString()))));
+//            sceneLightSources.add(new LightSource3D(position, new Color(Integer.parseInt(light.get("color").toString(), 16))));
 //        }
 //
 //
@@ -58,8 +58,11 @@
 //        scene.setLightSources(sceneLightSources);
 //    }
 //
-//    private static ArrayList<SceneObject> parseObject(String type, JSONArray array)
+//    private static ArrayList<SceneObject> parseObject(String type, JSONArray array, String color, JSONObject material)
 //    {
+//        Material material1 = parseMaterial(material);
+//        Color color1 = new Color(Integer.parseInt(color, 16));
+//
 //        ArrayList<SceneObject> objects = new ArrayList<SceneObject>();
 //        if (type.equals("Square3D"))
 //        {
@@ -88,7 +91,7 @@
 //                    Double.parseDouble(vector.get("y").toString()),
 //                    Double.parseDouble(vector.get("z").toString()));
 //
-//            Square3D square = new Square3D(normal, point1, point2, point3, point4);
+//            Square3D square = new Square3D(normal, point1, point2, point3, point4, color1, material1);
 //
 //            for (SceneObject ob : square.getPolygons())
 //            {
@@ -97,5 +100,12 @@
 //        }
 //
 //        return objects;
+//    }
+//
+//    private static Material parseMaterial(JSONObject material)
+//    {
+//        return new Material(Double.parseDouble(material.get("ambient").toString()),
+//                Double.parseDouble(material.get("diffuse").toString()),
+//                Double.parseDouble(material.get("reflection").toString()));
 //    }
 //}

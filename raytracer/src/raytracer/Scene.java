@@ -22,10 +22,7 @@ public class Scene {
 //        try
 //        {
 //            JsonSceneLoader.getSceneDescription(this);
-//        } catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        } catch (ParseException e)
+//        } catch (Exception e)
 //        {
 //            e.printStackTrace();
 //        }
