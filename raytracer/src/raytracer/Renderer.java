@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
  * Created by Anton on 21.05.2014.
  */
 public class Renderer {
-    private static final int MAX_RAY_RECURSION_LEVEL = 3;
+    // number of secondary rays
+    private static final int MAX_RAY_RECURSION_LEVEL = 1;
     private static final double THRESHOLD_RAY_INTENSITY = 0.1;
 
     public static BufferedImage render(RenderContext renderContext) {
@@ -102,28 +103,27 @@ public class Renderer {
             resultColor = addColors(resultColor,
                     mulColors(diffuse, material.getKd()));
         }
-//
-//
-//        // Reflect
-//        if (material.getKr() > 0) {
-//
-//            if ((r.getIntensity() > THRESHOLD_RAY_INTENSITY)
-//                    && (recursionLevel < MAX_RAY_RECURSION_LEVEL)) {
-//
-//                Ray reflectedRay = new Ray();
-//
-//                reflectedRay.setOrigin(r.getLastIntersectPoint());
-//                reflectedRay.setDirection(reflectDirection(r.getDirection(), sceneObject.getNormal()));
-//                reflectedRay.setIntensity(r.getIntensity() * material.getKr());
-//
-//                reflected = traceRecursively(reflectedRay, renderContext, recursionLevel + 1);
-//
-//            } else {
-//                reflected = renderContext.getBackgroundColor();
-//            }
-//            resultColor = addColors(resultColor,
-//                    mulColors(reflected, material.getKr()));
-//        }
+
+        // Reflect
+        if (material.getKr() > 0) {
+
+            if ((r.getIntensity() > THRESHOLD_RAY_INTENSITY)
+                    && (recursionLevel < MAX_RAY_RECURSION_LEVEL)) {
+
+                Ray reflectedRay = new Ray();
+
+                reflectedRay.setOrigin(r.getLastIntersectPoint());
+                reflectedRay.setDirection(reflectDirection(r.getDirection(), sceneObject.getNormal()));
+                reflectedRay.setIntensity(r.getIntensity() * material.getKr());
+
+                reflected = traceRecursively(reflectedRay, renderContext, recursionLevel + 1);
+
+            } else {
+                reflected = renderContext.getBackgroundColor();
+            }
+            resultColor = addColors(resultColor,
+                    mulColors(reflected, material.getKr()));
+        }
 
         return resultColor;
     }

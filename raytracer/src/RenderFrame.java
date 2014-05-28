@@ -83,7 +83,7 @@ public class RenderFrame {
             renderContext = new RenderContext(200, 200,
                     camera,
                     scene,
-                    Color.black);
+                    Color.white);
 
             renderedImage = Renderer.render(renderContext);
 

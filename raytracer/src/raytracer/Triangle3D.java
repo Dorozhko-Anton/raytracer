@@ -131,7 +131,8 @@ public class Triangle3D implements SceneObject {
         Vector3D edge2 = v2.minus(v0);
         Vector3D pvec = Vector3D.cross(r.getDirection(), edge2);
         double det = Vector3D.dot(edge1, pvec);
-        if (det < EPSILON) return false;
+        if (det > -EPSILON && det < EPSILON) return false;
+        if (det < 0 ) return false;
         double invDet = 1 / det;
         Vector3D tvec = r.getOrigin().minus(v0);
 

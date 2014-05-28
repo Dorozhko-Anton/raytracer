@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Square3D implements SceneObject {
     private Color color = Color.white;
-    private Material material = new Material(0.2, 0.8, 0);
+    private Material material = new Material(0.2, 0.5, 0.3);
     private Vector3D normal;
     private ArrayList<SceneObject> polygons;
     private double minX;
