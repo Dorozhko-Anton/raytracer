@@ -6,8 +6,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -42,8 +42,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -78,8 +78,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -114,8 +114,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -147,11 +147,11 @@
         },
         {
 			"type": "Square3D",
-			"color": "ffffff",
+			"color": "ff8000",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -183,11 +183,11 @@
         },
         {
 			"type": "Square3D",
-			"color": "ffffff",
+			"color": "ff8000",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -222,8 +222,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -255,11 +255,11 @@
         },
         {
 			"type": "Square3D",
-			"color": "ffffff",
+			"color": "ff8000",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -291,11 +291,11 @@
         },
         {
 			"type": "Square3D",
-			"color": "ffffff",
+			"color": "3d594b",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -330,8 +330,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -366,8 +366,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -399,11 +399,11 @@
         },
         {
 			"type": "Square3D",
-			"color": "ffffff",
+			"color": "3d594b",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -438,8 +438,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -471,11 +471,11 @@
         },
         {
 			"type": "Square3D",
-			"color": "ffffff",
+			"color": "9d1826",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -509,9 +509,9 @@
 			"type": "Square3D",
 			"color": "ffffff",
 			"material": {
-				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"ambient": 0.1,
+				"diffuse": 0.1,
+				"reflection": 0.8
 			},
 			"vectors": [
 				{
@@ -543,11 +543,11 @@
         },
         {
 			"type": "Square3D",
-			"color": "ffffff",
+			"color": "9d1826",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -582,8 +582,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -618,8 +618,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -654,8 +654,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -690,8 +690,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -726,8 +726,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -762,8 +762,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -798,8 +798,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -834,8 +834,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -870,8 +870,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -906,8 +906,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -942,8 +942,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -978,8 +978,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -1014,8 +1014,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -1050,8 +1050,8 @@
 			"color": "ffffff",
 			"material": {
 				"ambient": 0.2,
-				"diffuse": 0.5,
-				"reflection": 0.3
+				"diffuse": 0.8,
+				"reflection": 0
 			},
 			"vectors": [
 				{
@@ -1082,7 +1082,7 @@
 			]
         }
     ],
-    "numberOfLightSourses": 2,
+    "numberOfLightSourses": 3,
     "lightSourses": [
         {
             "color": "ffff00",
@@ -1094,6 +1094,12 @@
             "color": "0000ff",
 			"x": 105.0,
             "y": 75.0,
+            "z": 29.0
+        },
+        {
+            "color": "00ff00",
+            "x": 15,
+            "y": 30,
             "z": 29.0
         }
     ] 

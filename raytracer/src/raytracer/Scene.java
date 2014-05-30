@@ -3,6 +3,8 @@ package raytracer;
 //import org.json.simple.parser.ParseException;
 //import utils.JsonSceneLoader;
 
+import utils.JsonSceneLoader;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -19,14 +21,14 @@ public class Scene {
     private ArrayList<LightSource3D> lightSource3Ds = new ArrayList<LightSource3D>();
 
     public Scene() {
-//        try
-//        {
-//            JsonSceneLoader.getSceneDescription(this);
-//            return;
-//        } catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
+        try
+        {
+            JsonSceneLoader.getSceneDescription(this);
+            return;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         generateObjects();
         generateLightSources();
     }

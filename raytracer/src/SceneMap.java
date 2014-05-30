@@ -49,15 +49,10 @@ public class SceneMap extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                //TODO repaint scene
-                //renderPanel.changeCamerePosition(e.getX() * REDUCTION_COEFFICIENT, e.getY() * REDUCTION_COEFFICIENT);
-                renderPanel.changeCamerePosition((MAP_HEIGHT - Y_COORDINATE - e.getY()) * REDUCTION_COEFFICIENT, (e.getX() - X_COORDINATE) * REDUCTION_COEFFICIENT);
-                /*
-                if (checkPoint(e.getX(), e.getY()))
-                {
-                    renderPanel.changeCamerePosition(e.getX() * REDUCTION_COEFFICIENT, e.getY() * REDUCTION_COEFFICIENT);
-                }
-                */
+
+                renderPanel.changeCamerePosition((MAP_HEIGHT - Y_COORDINATE - e.getY()) * REDUCTION_COEFFICIENT,
+                        (e.getX() - X_COORDINATE) * REDUCTION_COEFFICIENT);
+
             }
         };
 

@@ -1,5 +1,4 @@
 import raytracer.*;
-import raytracer.Renderer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -163,7 +162,7 @@ public class RenderFrame {
             renderContext = new RenderContext(250, 250,
                     camera,
                     scene,
-                    Color.white);
+                    Color.green);
 
             //renderedImage = Renderer.render(renderContext);
 
@@ -235,7 +234,8 @@ public class RenderFrame {
         {
             camera.setWorldPosition(new Vector3D(x, y, 15));
 
-            renderedImage = Renderer.render(renderContext);
+            //renderedImage = Renderer.render(renderContext);
+            renderedImage = ForkJoinRenderer.render(renderContext);
             repaint();
         }
 

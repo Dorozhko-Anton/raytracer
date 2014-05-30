@@ -91,40 +91,6 @@ public class Triangle3D implements SceneObject {
 
     @Override
     public boolean intersect(Ray r) {
-
-//        Vector3D v0v1 = v1.minus(v0);
-//        Vector3D v0v2 = v2.minus(v0);
-//
-//
-//        double nDotRay = Vector3D.dot(normal, r.getDirection());
-//        if (Vector3D.dot(normal, r.getDirection()) == 0) return false; // ray parallel to triangle
-//        double d = Vector3D.dot(normal, v0);
-//        double t = -(Vector3D.dot(normal, r.getOrigin()) + d) / nDotRay;
-//
-//        // inside-out test
-//        Vector3D Phit = r.getPoint(t);
-//
-//        // inside-out test edge0
-//        Vector3D v0p = Phit.minus(v0);
-//        double v = Vector3D.dot(normal, Vector3D.cross(v0v1, v0p));
-//        if (v < 0) return false; // P outside triangle
-//
-//        // inside-out test edge1
-//        Vector3D v1p = Phit.minus(v1);
-//        Vector3D v1v2 = v2.minus(v1);
-//        double w = Vector3D.dot(normal, Vector3D.cross(v1v2, v1p));
-//        if (w < 0) return false; // P outside triangle
-//
-//        // inside-out test edge2
-//        Vector3D v2p = Phit.minus(v2);
-//        Vector3D v2v0 = v0.minus(v2);
-//        double u = Vector3D.dot(normal, Vector3D.cross(v2v0, v2p));
-//        if (u < 0) return false; // P outside triangle
-//
-//        r.setLastIntersectTime(t);
-//
-//        return true;
-
         //Möller-Trumbore algorithm
         // appered as bad variant, cause our points not arrange to give needed normal
         Vector3D edge1 = v1.minus(v0);
@@ -132,7 +98,7 @@ public class Triangle3D implements SceneObject {
         Vector3D pvec = Vector3D.cross(r.getDirection(), edge2);
         double det = Vector3D.dot(edge1, pvec);
         if (det > -EPSILON && det < EPSILON) return false;
-        if (det < 0 ) return false;
+        //if (det < 0 ) return false;
         double invDet = 1 / det;
         Vector3D tvec = r.getOrigin().minus(v0);
 

@@ -11,12 +11,10 @@ public class Vector3D {
         z = 0;
     }
 
-    private static final double EPSILON = 10e-4;
+    private static final double EPSILON = 10e-5;
 
     double x;
     double y;
-
-    ;
     double z;
 
     public Vector3D() {

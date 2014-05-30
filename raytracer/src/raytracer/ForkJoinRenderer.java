@@ -12,10 +12,11 @@ import java.util.concurrent.RecursiveAction;
 
 public class ForkJoinRenderer extends RecursiveAction {
     // number of secondary rays
-    private static final int MAX_RAY_RECURSION_LEVEL = 1;
+    private static final int MAX_RAY_RECURSION_LEVEL = 2;
     private static final double THRESHOLD_RAY_INTENSITY = 0.1;
 
     private static final int THRESHOLD = 500;
+    private static final double EPSILON = 10e-2;
 
     private RenderContext renderContext;
 
@@ -109,7 +110,7 @@ public class ForkJoinRenderer extends RecursiveAction {
 
         for (SceneObject sceneObject : renderContext.getScene().getObjects()) {
             if (sceneObject.intersect(r)) {
-                if (r.getLastIntersectTime() < nearestTime && r.getLastIntersectTime() > 0) {
+                if (r.getLastIntersectTime() < nearestTime && r.getLastIntersectTime() > EPSILON) {
                     nearestTime = r.getLastIntersectTime();
                     nearestObject = sceneObject;
                 }
@@ -167,11 +168,13 @@ public class ForkJoinRenderer extends RecursiveAction {
 
                 reflected = traceRecursively(reflectedRay, renderContext, recursionLevel + 1);
 
-                resultColor = addColors(resultColor,
-                        mulColors(reflected, material.getKr()));
+
             } else {
-                //reflected = renderContext.getBackgroundColor();
+                reflected = renderContext.getBackgroundColor();
             }
+
+            resultColor = addColors(resultColor,
+                    mulColors(reflected, material.getKr()));
 
         }
 
@@ -198,7 +201,7 @@ public class ForkJoinRenderer extends RecursiveAction {
 
         for (SceneObject sceneObject : renderContext.getScene().getObjects()) {
             if (sceneObject.intersect(r)) {
-                if (r.getLastIntersectTime() < nearestTime && r.getLastIntersectTime() > 0) {
+                if (r.getLastIntersectTime() < nearestTime && r.getLastIntersectTime() > EPSILON) {
                     nearestTime = r.getLastIntersectTime();
                     nearestPoint = r.getLastIntersectPoint();
                 }
@@ -234,7 +237,9 @@ public class ForkJoinRenderer extends RecursiveAction {
         final double y = incidentRay.y - normal.y * k;
         final double z = incidentRay.z - normal.z * k;
 
-        return new Vector3D(x, y, z);
+       return new Vector3D(x, y, z);
+
+       // return normal.mul(2*Vector3D.dot(incidentRay, normal)).minus(incidentRay);
 
     }
 
